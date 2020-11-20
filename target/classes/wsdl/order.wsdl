@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://pg8trader.com/ConsumerValidator" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://pg8trader.com/ConsumerValidator" targetNamespace="http://pg8trader.com/ConsumerValidator">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://pg8trader.com/ConsumerValidator">
+            <xs:element name="getOrderRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="clientId" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getOrderResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="order" type="tns:order"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="order">
+                <xs:sequence>
+                    <xs:element name="clientId" type="xs:string"/>
+                    <xs:element name="product" type="xs:string"/>
+                    <xs:element name="quantity" type="xs:int"/>
+                    <xs:element name="price" type="xs:double"/>
+                    <xs:element name="side" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getOrderResponse">
+        <wsdl:part element="tns:getOrderResponse" name="getOrderResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getOrderRequest">
+        <wsdl:part element="tns:getOrderRequest" name="getOrderRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="OrderService">
+        <wsdl:operation name="getOrder">
+            <wsdl:input message="tns:getOrderRequest" name="getOrderRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:getOrderResponse" name="getOrderResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="OrderServiceSoap11" type="tns:OrderService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getOrder">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getOrderRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getOrderResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="OrderServiceService">
+        <wsdl:port binding="tns:OrderServiceSoap11" name="OrderServiceSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

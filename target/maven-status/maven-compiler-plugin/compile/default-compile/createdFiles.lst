@@ -1,0 +1,8 @@
+com/config/config.class
+com/WsdlClasses/ObjectFactory.class
+com/clientservice/ClientService.class
+com/WsdlClasses/package-info.class
+com/WsdlClasses/Order.class
+com/WsdlClasses/GetOrderResponse.class
+com/WsdlClasses/GetOrderRequest.class
+com/consumer/Consumer.class
